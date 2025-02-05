@@ -13,7 +13,14 @@
         <label for="fileSize">Total size:</label>
         <output id="fileSize">0</output>
       </div>
-      <div><input type="submit" value="Upload"</div>
+      <div><input type="submit" value="Upload File"/></div>
+    </form>
+    <br>
+    <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+      <div>
+        <input id="uploadInput" type="file" name="file" webkitdirectory mozdirectory />
+        <input type="submit" value="Upload Folder"/>
+      </div>
     </form>
     <script src="{{ url_for('static', filename='filesize.js') }}"></script>
   </body>
