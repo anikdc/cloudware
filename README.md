@@ -5,7 +5,7 @@ Use your own hardware as cloud storage!
  - [ ] Figure out how static and templates work better
  - [ ] Learn about POST and GET
  - [ ] Improve download efficiency (Fetch)
- - [ ] Maintain Folder Structure
+ - [x] Maintain Folder Structure
  - [x] Multiple file storage
  - [x] Download to local storage
  - [x] Connect Flask to index.html

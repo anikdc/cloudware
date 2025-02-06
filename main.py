@@ -1,7 +1,6 @@
 import os
 import re
 from flask import Flask, flash, request, redirect, url_for,render_template
-from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.secret_key = 'aiwillkillme'
@@ -16,6 +15,12 @@ UPLOAD_FOLDER="C:\\Users\\anik2\\OneDrive\\Documents\\College"
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'rar'}
 app.config['UPLOAD_FOLDER']=UPLOAD_FOLDER
 
+def sanitize_filename(filename):
+    filename = filename.replace('\0', '')
+    filename = re.sub(r'[<>:"/\\|?*]', '', filename)
+    filename = filename.lstrip('.')
+    return filename
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -29,8 +34,9 @@ def upload_file():
                 flash('No selected file')
                 return redirect(request.url)
             if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
                 directory = os.path.dirname(file.filename)
+                filename = os.path.basename(file.filename)
+                filename = sanitize_filename(filename)
                 if directory:
                     os.chdir(app.config['UPLOAD_FOLDER'])
                     os.makedirs(directory,exist_ok=True)
