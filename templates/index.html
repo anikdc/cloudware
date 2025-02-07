@@ -5,9 +5,10 @@
     <title>File(s) size</title>
   </head>
   <body>
-    <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
       <div>
         <input id="uploadInput" type="file" name="file" multiple/>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <label for="fileNum">Selected files: </label>
         <output id="fileNum">0</output>;
         <label for="fileSize">Total size:</label>
@@ -16,9 +17,10 @@
       <div><input type="submit" value="Upload File"/></div>
     </form>
     <br>
-    <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
       <div>
         <input id="uploadInput" type="file" name="file" webkitdirectory mozdirectory />
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <input type="submit" value="Upload Folder"/>
       </div>
     </form>
