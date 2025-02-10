@@ -1,7 +1,7 @@
 import os
 import re
 from main import *
-from flask import flash, redirect, url_for, request, app
+from flask import flash, redirect, url_for, request, app, jsonify
 
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'rar'}
 
@@ -19,6 +19,7 @@ def allowed_file(filename):
         filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def upload_file(app):
+    uploaded_files=[]
     if request.method == 'POST':
         files = request.files.getlist("file")
         for index, file in enumerate(files, start=-1):
@@ -35,4 +36,8 @@ def upload_file(app):
                     file.save(os.path.join(full_directory, filename))
                 else: 
                     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-    return redirect(url_for('home'))
+                uploaded_files.append(filename)
+    return jsonify({
+        'message': 'Files uploaded successfully',
+        'files': uploaded_files
+    })

@@ -52,7 +52,7 @@ Required environment variables:
  - [ ] Create an upload progress bar
  - [ ] Figure out how static and templates work better
  - [ ] Learn about POST and GET
- - [ ] Improve download efficiency (Fetch)
+ - [x] Improve download efficiency (Fetch)
  - [x] Make the app a little bit more secure
  - [x] Maintain Folder Structure
  - [x] Multiple file storage
