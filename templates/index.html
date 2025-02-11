@@ -3,28 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <title>File(s) size</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'JetBrains Mono', monospace;
+      }
+      .file-input {
+        display: none;
+      }
+      .custom-file-button {
+        padding: 6px 12px;
+        cursor: pointer;
+        background-color: #83faec;
+        border: 2px solid #000000;
+        border-radius: 10px;
+        font-family: 'JetBrains Mono', monospace;
+      }
+    </style>
   </head>
   <body>
     <form id="form1" action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
       <div>
-        <input id="uploadInput" type="file" name="file" multiple/>
+        <input id="uploadInput" type="file" name="file" multiple class="file-input"/>
+        <label for="uploadInput" class="custom-file-button">Select Files</label>
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-        <label for="fileNum">Selected files: </label>
-        <output id="fileNum">0</output>;
-        <label for="fileSize">Total size:</label>
-        <output id="fileSize">0</output>
+        <input type="submit" value="Upload Files" class="custom-file-button"/>
       </div>
-      <div><input type="submit" value="Upload File"/></div>
-      <script src="{{ url_for('static', filename='fileupload.js') }}"></script>     
     </form>
     <br>
     <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
       <div>
-        <input id="uploadInput" type="file" name="file" webkitdirectory mozdirectory />
+        <input id="uploadInput2" type="file" name="file" webkitdirectory mozdirectory multiple class="file-input"/>
+        <label for="uploadInput2" class="custom-file-button">Select Directory</label>
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-        <input type="submit" value="Upload Folder"/>
+        <input type="submit" value="Upload Directory"/ class="custom-file-button">
       </div>
     </form>
+    <br>
+    <label for="fileNum">Selected files: </label>
+    <output id="fileNum">0</output>;
+    <label for="fileSize">Total size:</label>
+    <output id="fileSize">0</output>
+    <script src="{{ url_for('static', filename='fileupload.js') }}"></script>
     <script src="{{ url_for('static', filename='filesize.js') }}"></script>
   </body>
 </html>
